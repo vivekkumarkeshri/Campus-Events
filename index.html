@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusEvents | Smart Event Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- qrcode.js library for generating QR codes offline -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="logo">🎓 CampusConnect</div>
+        <ul class="nav-links">
+            <li><button class="nav-btn active" data-view="discover">Discover</button></li>
+            <li><button class="nav-btn" data-view="myevents">My Events</button></li>
+            <li><button class="nav-btn" data-view="profile">My Profile</button></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+
+        <!-- ===== VIEW 1: ONBOARDING / INTERESTS ===== -->
+        <section id="view-onboarding" class="view">
+            <div class="card onboarding-card">
+                <h2>👋 Welcome to CampusConnect</h2>
+                <p>Tell us what you like, and we'll recommend events just for you.</p>
+
+                <label for="studentName">Your Name</label>
+                <input type="text" id="studentName" placeholder="e.g. Rahul Sharma">
+
+                <label for="studentBranch">Branch / Department</label>
+                <select id="studentBranch">
+                    <option value="CSE">Computer Science</option>
+                    <option value="ECE">Electronics</option>
+                    <option value="MECH">Mechanical</option>
+                    <option value="CIVIL">Civil</option>
+                    <option value="IT">Information Technology</option>
+                </select>
+
+                <p class="label-title">Pick your interests (choose as many as you like)</p>
+                <div id="interestGrid" class="interest-grid"></div>
+
+                <button id="saveProfileBtn" class="btn-primary">Save & See Recommendations</button>
+            </div>
+        </section>
+
+        <!-- ===== VIEW 2: DISCOVER (RECOMMENDED EVENTS) ===== -->
+        <section id="view-discover" class="view hidden">
+            <div class="view-header">
+                <h2 id="greetText">Recommended For You</h2>
+                <input type="text" id="searchInput" placeholder="🔍 Search events...">
+            </div>
+
+            <div class="filter-bar">
+                <button class="chip active" data-cat="All">All</button>
+                <button class="chip" data-cat="Technical">Technical</button>
+                <button class="chip" data-cat="Cultural">Cultural</button>
+                <button class="chip" data-cat="Sports">Sports</button>
+                <button class="chip" data-cat="Workshop">Workshop</button>
+            </div>
+
+            <div id="eventGrid" class="event-grid"></div>
+            <p id="noEventsMsg" class="empty-msg hidden">No matching events found.</p>
+        </section>
+
+        <!-- ===== VIEW 3: MY EVENTS + DIGITAL PASSES ===== -->
+        <section id="view-myevents" class="view hidden">
+            <h2>🎫 My Registered Events</h2>
+            <div id="passList" class="pass-list"></div>
+            <p id="noPassMsg" class="empty-msg">You haven't registered for any events yet.</p>
+        </section>
+
+        <!-- ===== VIEW 4: PROFILE ===== -->
+        <section id="view-profile" class="view hidden">
+            <div class="card">
+                <h2>👤 My Profile</h2>
+                <div id="profileDetails"></div>
+                <div class="stats-row">
+                    <div class="stat-box"><span id="statRegistered">0</span><small>Registered</small></div>
+                    <div class="stat-box"><span id="statAttended">0</span><small>Attended</small></div>
+                    <div class="stat-box"><span id="statPoints">0</span><small>Activity Points</small></div>
+                </div>
+                <button id="editInterestsBtn" class="btn-outline">Edit Interests</button>
+                <button id="resetBtn" class="btn-danger">Reset All Data</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== DIGITAL PASS MODAL ===== -->
+    <div id="passModal" class="modal hidden">
+        <div class="modal-content pass-ticket">
+            <span class="close-btn" id="closePass">&times;</span>
+            <div class="ticket-header">
+                <div class="college-badge">CC</div>
+                <div>
+                    <h3 id="passEventName">Event Name</h3>
+                    <p id="passEventMeta">Date • Venue</p>
+                </div>
+            </div>
+            <div class="ticket-body">
+                <div id="qrContainer" class="qr-container"></div>
+                <div class="ticket-info">
+                    <p><strong>Name:</strong> <span id="passStudentName"></span></p>
+                    <p><strong>Pass ID:</strong> <span id="passId"></span></p>
+                    <p><strong>Status:</strong> <span class="status-valid">VALID</span></p>
+                </div>
+            </div>
+            <div class="ticket-footer">Show this QR at the entry gate 📱</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
